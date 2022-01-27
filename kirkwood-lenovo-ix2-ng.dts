@@ -1,0 +1,55 @@
+/* Device tree file for the Lenovo IOMEGA IX2-ng NAS box.
+ *
+ * Copyright (c) 2017, Daniel Helgason <daniel.k.helgason @ gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version
+ * 2 of the License, or (at your option) any later version.
+ *
+ * Based on the device-tree work of many fine linux developers.
+ */
+
+/dts-v1/;
+
+#include "kirkwood-lenovo-ix2-common.dtsi"
+
+/ {
+	model = "Lenovo IX2-ng";
+	compatible = "lenovo,ix2", "marvell,kirkwood-88f6282", "marvell,kirkwood";
+
+	ocp@f1000000 {
+		spi@10600 {
+			status = "okay";
+
+			flash@0 {
+				#address-cells = <1>;
+				#size-cells = <1>;
+				/* MX25L8006E can do 4K sector handling but
+				 * sadly not in spi-nor.c yet.
+				 */
+//				compatible = "mxicy,mx25l8006e", "jedec,spi-nor";
+				compatible = "mxicy,mx25l8005", "jedec,spi-nor";
+				spi-max-frequency = <50000000>;
+				reg = <0>; /* Chip-select 0 */
+				mode = <0>;
+
+				partition@0 {
+					reg = <0x0 0x7e000>;
+					label = "u-boot";
+				};
+
+				partition@1 {
+					reg = <0x7e000 0x1000>;
+					label = "u-boot env2";
+				};
+
+				partition@2 {
+					reg = <0x7f000 0x1000>;
+					label = "u-boot env";
+				};
+			};
+		};
+	};
+};
+
