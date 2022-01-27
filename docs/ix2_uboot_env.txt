@@ -1,0 +1,132 @@
+
+         __  __                      _ _
+        |  \/  | __ _ _ ____   _____| | |
+        | |\/| |/ _` | '__\ \ / / _ \ | |
+        | |  | | (_| | |   \ V /  __/ | |
+        |_|  |_|\__,_|_|    \_/ \___|_|_|
+ _   _     ____              _
+| | | |   | __ )  ___   ___ | |_ 
+| | | |___|  _ \ / _ \ / _ \| __| 
+| |_| |___| |_) | (_) | (_) | |_ 
+ \___/    |____/ \___/ \___/ \__|  ** ix2-spi ** ** uboot_ver:0.0.8 **
+
+ ** MARVELL BOARD: DB-88F6282A-BP LE 
+
+U-Boot 1.1.4 (Oct 28 2011 - 15:18:22) Marvell version: 3.6.1 - EMC
+
+U-Boot code: 00600000 -> 0067FFF0  BSS: -> 006CD5A0
+
+Soc: 88F6282 A1 CPU running @ 1600Mhz L2 running @ 533Mhz
+SysClock = 533Mhz , TClock = 200Mhz 
+
+DRAM (DDR3) CAS Latency = 7 tRP = 7 tRAS = 20 tRCD=7
+DRAM CS[0] base 0x00000000   size 256MB 
+DRAM Total size 256MB  16bit width
+Addresses 8M - 0M are saved for the U-Boot usage.
+Mem malloc Initialization (8M - 7M): Done
+Found ADT7473, program PWM1 ... OK
+[1024kB@f8000000] Flash:  1 MB
+
+Marvell Serial ATA Adapter
+Integrated Sata device found
+[0 0 0]: Enable DMA mode (6)
+  Device 0 @ 0 0:
+Model: WDC WD20EZRX-00D8PB0                     Firm: 80.00A80 Ser#:      xx-xxxxxxxxxxxx
+            Type: Hard Disk
+            Supports 48-bit addressing
+            Capacity: 1907729.0 MB = 1863.0 GB (-387938128 x 512)
+
+
+CPU : Marvell Feroceon (Rev 1)
+
+Streaming disabled 
+Write allocate disabled
+
+
+USB 0: host mode
+PEX 0: interface detected no Link.
+PEX 1: interface detected no Link.
+Net:   egiga0 [PRIME]
+Hit any key to stop autoboot:  3  0 
+Marvell>> printenv
+baudrate=115200
+loads_echo=0
+rootpath=/srv/ubuntu
+run_diag=yes
+MALLOC_len=1
+ethprime=egiga0
+bootargs_end=:::DB88FXX81:eth0:none
+image_name=uImage
+standalone=fsload 0x2000000 $(image_name);setenv bootargs $(console) root=/dev/mtdblock0 rw ip=$(ipaddr):$(serverip)$(bootargs_end) $(mvPhoneConfig); bootm 0x2000000;
+lcd0_enable=0
+lcd0_params=640x480-16@60
+ethmtu=1500
+mvPhoneConfig=mv_phone_config=dev[0]:fxs,dev[1]:fxo
+mvNetConfig=mv_net_config=(xx:xx:xx:xx:xx:xx,0:1:2:3),mtu=1500
+usb0Mode=host
+yuk_ethaddr=xx:xx:xx:xx:xx:xx
+netretry=no
+rcvrip=169.254.100.100
+loadaddr=0x02000000
+autoload=no
+image_multi=yes
+ethact=egiga0
+console=console=ttyS0,115200
+bootargs_mtd=mtdparts=spi_flash:0x7e000@0(u-boot),0x1000@0x7f000(env),0x1000@0x7e000(env2)
+kernelimage=zImage
+initrdimage=mfginitrd
+mfgmodel=ix2
+preroot_ver=0.0.2
+bootcmd2=ide dev 1;ide read 0x40000 0x800 0x1800; ide read 0x900000 0x2000 0x1800; bootm 0x40000 0x900000;
+uboot_ver=0.0.8
+serial_number=xxxxxxxxxxxxxxxxxxxxxxx
+ethaddr=xx:xx:xx:xx:xx:xx
+serialNo=xxxxxxxxxxxxxxxxxx
+modelname=SM10G78635
+fw_ver=4.1.102.29716
+serialno=x,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+runintime=10800
+ftpserver=192.168.43.4
+testfile=100M
+mfgtest_state=system_tested_ok
+pre_path=IX2/1.1.0/download_runin.sh
+pre_path_conf=IX2/1.1.0/download_runin.conf
+pre_serverip=192.168.32.4
+pre_user=ixxrunin
+pre_passwd=123
+pre_dirzi=IX2/1.1.0
+bootfile=zImage
+gatewayip=192.168.1.1
+netmask=255.255.255.0
+ipaddr=192.168.1.234
+serverip=192.168.1.126
+arcNumber=11
+bootcmd_original=ide reset; ide read 0x40000 0x800 0x1800; ide read 0x900000 0x2000 0x1800; setenv bootargs $(console) $(bootargs_root) $(bootargs_mtd) $(bootargs_end); bootm 0x40000
+bootargs_root_original=root=/dev/ram0
+bootargs_root=root=/dev/sda3
+bootcmd=mw.l 0xf1010148 0x80; ide reset; ext2load ide 0:1 0x800000 /uImage; ext2load ide 0:1 0x1100000 /uInitrd; setenv bootargs $(console) $(bootargs_root) $(bootargs_end); bootm 0x800000 0x1100000
+stdin=serial
+stdout=serial
+stderr=serial
+mainlineLinux=no
+enaMonExt=no
+enaCpuStream=no
+enaWrAllo=no
+pexMode=RC
+disL2Cache=no
+setL2CacheWT=yes
+disL2Prefetch=yes
+enaICPref=yes
+enaDCPref=yes
+sata_dma_mode=yes
+netbsd_en=no
+vxworks_en=no
+bootdelay=3
+disaMvPnp=no
+enaAutoRecovery=yes
+pcieTune=no
+pcieTune1=no
+
+Environment size: 2281/4091 bytes
+Marvell>> 
+

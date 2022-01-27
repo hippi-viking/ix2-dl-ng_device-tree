@@ -1,0 +1,380 @@
+Install Debian on Lenovo IX2-ng
+===============================
+
+Read all instructions before starting.
+
+To install Debian on a Lenovo IX2, you will require a TTL<->RS232 adapter
+and an ethernet network connection for the IX2.
+
+
+
+Background information.
+=======================
+
+When the Linux kernel boots, it requires a device-tree file be loaded in
+memory and passed to it during the boot procedure. The device-tree file
+describes exactly the hardware that the kernel is booting on and which
+drivers the kernel must use to control the hardware. 
+
+The version of U-boot on the IX2 is fairly old. It pre-dates use of the
+device-tree mechanism used to describe hardware to the Linux kernel.
+It does not know about device-tree files and cannot provide one to the kernel.
+There are two ways around this.
+
+One is to replace U-boot in the IX2 with a newer version that understands
+how to handle device-tree files. This is troublesome because the IX2 can be
+bricked, with no easy way to recover, if something goes wrong when updating
+U-boot. The Marvell CPU in the IX2 has a built-in recovery method but the
+serial port that is used for this is not exposed or available in the IX2.
+Special tools and advanced knowledge are required to recover a bricked IX2.
+
+A second way to provide a device-tree file to the kernel is to piggy-back
+the device-tree file onto the Linux kernel. The device-tree file is directly
+appended to the kernel file. Linux can then easily find the device-tree
+information that it requires as it will be loaded in memory when the
+kernel file is loaded. To U-Boot this just looks like a single kernel
+file which it can handle.
+
+This documentation describes how to install Debian using the second method
+to provide device-tree information. This method was chosen because it does
+not require updating U-Boot in the IX2. A Linux kernel is required that has
+device-tree information describing the IX2 built right into the kernel file.
+This is a stock Debian kernel but with information about the IX2 hardware
+attached to it.
+
+
+
+Gain access to U-Boot serial console.
+=====================================
+
+Attach TTL<->RS-232 adapter to the IX2. Connection point is 4-pin connector
+labeled CN4, visible at front of the IX2 circuit board.
+
+CN4 pin-out:
+Pin 1 	VCC (3.3V or 5v, selected by jumper JP1, default is 3.3V)
+Pin 2 	RxD
+Pin 3 	GND
+Pin 4 	TxD
+
+Pin 1 is nearest label "CN4".
+Serial port settings are 115200, 8 bits, no parity, 1 stop-bit.
+
+Only draw VCC from IX2 if your TTL adapter really needs it. Usually USB
+adapters get their power from USB so they only need RxD, TxD, GND.
+Ensure TTL adapter is set to drive/expect 3.3 volt signals. 
+
+You might need to disassemble the IX2 to reach the serial port connector.
+Remove the back of the IX2 by removing 4 screws from the back panel and then
+remove the back panel. Remove 2 screws from chassis, 1 at bottom-center of fan
+and 1 similar at upper-right of fan. Slide the chassis out the back of the
+case, removing the LED cable if required.
+
+You might consider using a small cable from a PC fan or similar and leaving it
+attached to the serial port. It can curl up inside the IX2 when not being
+used. This allows easy access to the serial port in the future.
+
+
+
+Start U-Boot and stop at prompt.
+================================
+ 
+Apply power to IX2 and press any key to stop U-Boot auto-boot when prompted.
+
+First time, just to be safe, issue "printenv" U-Boot command and use your
+serial terminal program to capture and save the output.
+
+
+
+Prepare U-Boot for Linux.
+=========================
+
+Issue the following U-Boot commands to prepare for booting mainline Linux:
+
+setenv mainlineLinux yes
+saveenv
+reset
+
+Stop at U-Boot prompt again.
+
+This variable is only examined by U-Boot when it first boots up, thus the
+"reset" command.
+
+The stock IX2 Linux will no longer boot. If you need to go back to booting
+stock IX2 Linux, use:
+
+setenv mainlineLinux no
+saveenv
+reset
+
+
+
+Boot from Linux kernel and execute Debian installer.
+====================================================
+
+There are two ways to get U-Boot to load and execute the installer.
+Use either network method or USB method.
+
+In either case, when the installer is running on the IX2, it requires an
+internet connection so it can retrieve files for installation.
+
+Network method
+--------------
+
+This method requires network connection and TFTP server. DHCP is optional.
+The prepared Linux kernel image, Debian installer file, and device-tree file
+must be available to be served by your TFTP server.
+ 
+Issue the following U-Boot command to set IP address of IX2:
+
+dhcp                             (acquire IP address from DHCP server)
+  or
+setenv ipaddr nnn.nnn.nnn.nnn    (set IP address manually)
+
+Now issue the following U-Boot commands:
+
+setenv serverip nnn.nnn.nnn.nnn  (set IP address of TFTP server)
+tftpboot 0x800000 uImage
+tftpboot 0x1100000 uInitrd
+setenv bootargs 'console=ttyS0,115200 root=/dev/ram :::DB88FXX81:eth0:none'
+bootm 0x800000 0x1100000
+
+You should see Linux boot and the installer start.
+Examine your TFTP, firewall, and access settings if problems.
+
+
+USB method
+----------
+
+This method requires a USB memory stick with a FAT formatted partition.
+Keep the partition size around 100 MB to speed things up.
+The prepared Linux kernel image, Debian installer file, and device-tree file
+must be copied to the USB stick.
+
+Plug USB stick into IX2 and issue the following U-Boot commands:
+
+usb start
+fatload usb 0:1 0x800000 uImage
+fatload usb 0:1 0x1100000 uInitrd
+setenv bootargs 'console=ttyS0,115200 root=/dev/ram :::DB88FXX81:eth0:none'
+bootm 0x800000 0x1100000
+
+You should see Linux boot and the installer start.
+This procedure can take some time depending on the size of the USB memory.
+Check your USB memory stick for errors if problems.
+
+
+
+Install Debian.
+===============
+
+Disk Partitioning
+-----------------
+
+During the install procedure, you will need to select manual partitioning of
+the storage device(s).
+
+You must create a separate primary /boot partition. The /boot partition must
+be formatted as EXT2 filesystem so that U-Boot can load kernel files from it.
+The partition should be around 256 MB to allow for multiple kernel versions.
+The rest of the filesystem layout can be configured to suit your requirements.
+
+Take care to note which storage device you are partitioning and formatting.
+This is particularly important if you used a USB memory stick to boot the
+kernel and installer.
+
+A typical partitioning of a single disk could look like this:
+
+SCSI1 (0,0,0) (sda)
+                                 type          mount point
+    #1  primary  254.8 MB  B  f  ext2          /boot
+    #2  primary  511.7 MB     f  swap          swap
+    #3  primary   32.0 GB     f  ext4          /
+    #4  primary  127.3 GB     f  ext4          /home
+
+Make note of the partition that is mounted as the root filesystem. You will
+need that information to configure U-Boot later.
+
+
+During the installation
+-----------------------
+
+During the installation, the installer program will complain that it cannot
+find a kernel to install. This is expected because Debian does not know
+about the IX2 or what type of kernel it requires (ARM, x86, MIPS, etc.).
+
+Continue the installation without a kernel.
+
+
+Finish the installation
+-----------------------
+
+When the installer program is complete, it will display a dialog box
+with the title "Finish the installation". At this point, the Debian
+distribution is installed except for the Linux kernel.
+
+We need to manually install and configure the kernel.
+
+Select "Go Back" in the dialog box. This will take you to the Debian
+installer main menu. Select "Execute a shell" from the main menu.
+
+First, we need to copy the device-tree file into the Debian filesystem.
+The commands to do this depend on install method you are using.
+
+Type the following command if you are installing from a TFTP server:
+
+cd /target/boot
+tftp -g -r kirkwood-lenovo-ix2-ng.dtb nnn.nnn.nnn.nnn
+cd /
+
+where nnn.nnn.nnn.nnn specifies the IP address of the TFTP server.
+
+Or type the following commands if you are installing from USB memory:
+
+mount /dev/sda1 /mnt
+cp /mnt/kirkwood-lenovo-ix2-ng.dtb /target/boot
+umount /dev/sda1
+
+Now we need to install the correct kernel to the Debian filesystem.
+Type the following commands:
+
+chroot /target
+apt-get install linux-image-kirkwood
+
+Next, we need to append the device-tree information to the kernel and then
+generate two binary files that U-Boot can load. These files are the kernel
+and the initial ram filesystem (initial RAM disk).
+
+cd /boot
+cat vmlinuz-3.16.0-4-kirkwood kirkwood-lenovo-ix2-ng.dtb > vmlinuz.fdt
+mkimage -A arm -O linux -T kernel -C none -a 0x8000 -e 0x8000 -n "kernel 3.16.0-4-kirkwood" -d vmlinuz.fdt uImage
+mkimage -A arm -O linux -T ramdisk -C gzip -a 0x0 -e 0x0 -n "ramdisk 3.16.0-4-kirkwood" -d initrd.img-3.16.0-4-kirkwood uInitrd
+
+Finally, we need to move the device-tree file to its final position in the
+Debian filesystem and clean up a bit:
+
+cp /boot/kirkwood-lenovo-ix2-ng.dtb /usr/lib/linux-image-3.16.0-4-kirkwood/
+rm /boot/kirkwood-lenovo-ix2-ng.dtb
+rm /boot/vmlinuz.fdt
+
+The end result should be two additional files in the /boot directory,
+uImage and uInitrd. These files are in a format that U-Boot can load.
+
+Return to the installer program and finish the installation:
+
+cd /
+exit      (exit change-root)
+exit      (exit shell)
+
+The IX2 will reboot when you finish the installation.
+
+Press any key to stop U-Boot auto-boot when prompted. We still need to
+configure U-Boot to use the kernel on the hard-disk. 
+
+
+
+Configure U-Boot for booting Linux.
+===================================
+
+The following commands will back up U-Boot variables that we are changing:
+
+setenv bootargs_root_original $(bootargs_root)
+setenv bootcmd_original $(bootcmd)
+
+The following command will configure the kernel boot arguments that U-Boot
+will pass to the kernel:
+
+setenv bootargs_root root=/dev/sdaX
+
+where X is your root filesystem, created at installation.
+
+The following command will configure U-Boot to blink a LED and boot the kernel,
+passing an initial RAM filesystem to the kernel:
+
+setenv bootcmd 'mw.l 0xf1010148 0x80; ide reset; ext2load ide 0:1 0x800000 /uImage; ext2load ide 0:1 0x1100000 /uInitrd; setenv bootargs $(console) $(bootargs_root) $(bootargs_end); bootm 0x800000 0x1100000'
+
+Now save our changes:
+
+saveenv
+
+
+
+First boot of Linux from U-Boot.
+================================
+
+Keep the serial port available until you can boot the IX2 and access it
+from the network.
+
+Type "reset" to restart U-Boot. Let it auto-boot the Linux kernel. You should
+see something like:
+
+Marvell>> reset
+
+         __  __                      _ _
+        |  \/  | __ _ _ ____   _____| | |
+        | |\/| |/ _` | '__\ \ / / _ \ | |
+        | |  | | (_| | |   \ V /  __/ | |
+        |_|  |_|\__,_|_|    \_/ \___|_|_|
+ _   _     ____              _
+| | | |   | __ )  ___   ___ | |_ 
+| | | |___|  _ \ / _ \ / _ \| __| 
+| |_| |___| |_) | (_) | (_) | |_ 
+ \___/    |____/ \___/ \___/ \__|  ** ix2-spi ** ** uboot_ver:0.0.8 **
+
+ ** MARVELL BOARD: DB-88F6282A-BP LE 
+
+U-Boot 1.1.4 (Oct 28 2011 - 15:18:22) Marvell version: 3.6.1 - EMC
+.
+.
+.
+Hit any key to stop autoboot:  0 
+
+Reset IDE: 
+Marvell Serial ATA Adapter
+Integrated Sata device found
+[0 0 0]: Enable DMA mode (5)
+  Device 0 @ 0 0:
+Model: ST9160823AS                 Firm: 3.CME    Ser#:             xxxxxxxx
+            Type: Hard Disk
+            Supports 48-bit addressing
+            Capacity: 152627.8 MB = 149.0 GB (312581808 x 512)
+
+2086479 bytes read
+
+10015734 bytes read
+
+## Booting image at 00800000 ...
+   Image Name:   kernel 3.16.0-4-kirkwood
+   Created:      2017-02-09   0:33:23 UTC
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    2086415 Bytes =  2 MB
+   Load Address: 00008000
+   Entry Point:  00008000
+   Verifying Checksum ... OK
+OK
+## Loading Ramdisk Image at 01100000 ...
+   Image Name:   ramdisk 3.16.0-4-kirkwood
+   Created:      2017-02-09   0:33:58 UTC
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    10015670 Bytes =  9.6 MB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 3.16.0-4-kirkwood (debian-kernel@lists.debian.org)
+[    0.000000] CPU: Feroceon 88FR131 [56251311] rev 1 (ARMv5TE), cr=0005397f
+[    0.000000] CPU: VIVT data cache, VIVT instruction cache
+[    0.000000] Machine model: Lenovo IX2-ng
+[    0.000000] Memory policy: Data cache writeback
+.
+.
+.
+Debian GNU/Linux 8 hostname ttyS0
+
+hostname login:
+
