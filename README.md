@@ -4,8 +4,8 @@ Flattened device tree (FDT) to make custom linux or BSD kernels run on Iomega/Le
 - kirkwood-lenovo-ix2-common.dtsi: Marvell Kirkwood platform common device tree from linux source tree (for reference)
 - kirkwood-lenovo-ix2-dl.dts: ix2-dl NAND definition *(partitions can be modified here if needed!)*
 - kirkwood-lenovo-ix2-dl-full.dts: merged ix2-dl device tree in one file
-- kirkwood-lenovo-ix2-dl-stock.dtb: binary device tree ready for deployment on device
-- kirkwood-lenovo-ix2-ng.dts: ix2-**ng** flash definition **(NOT NAND!)** (for reference, (c) Daniel Helgason @ [Linux Device Hacking forum](https://forum.doozan.com/read.php?3,19216))
+- kirkwood-lenovo-ix2-dl-stock.dtb: binary device tree with stock NAND partion map ready for deployment on device
+- kirkwood-lenovo-ix2-ng.dts: ix2-**ng flash** definition **(NOT NAND!)** (for reference, (c) Daniel Helgason @ [Linux Device Hacking forum](https://forum.doozan.com/read.php?3,19216))
 
 # mtd0
 mtd0 partition (u-boot bootloader) backup for emergency rescue if you manage to wipe it.
