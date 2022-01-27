@@ -1,4 +1,4 @@
-# ix2-dl
+# device tree
 Flattened device tree (FDT) to make custom linux or BSD kernels run on Iomega/Lenovo/EMC ix2-**dl** (sold without HDDs, contains 1GB NAND). [^1] [^2]
 
 - kirkwood-lenovo-ix2-common.dtsi: Marvell Kirkwood platform common device tree from linux source tree (for reference)
