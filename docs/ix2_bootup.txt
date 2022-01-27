@@ -1,0 +1,348 @@
+
+         __  __                      _ _
+        |  \/  | __ _ _ ____   _____| | |
+        | |\/| |/ _` | '__\ \ / / _ \ | |
+        | |  | | (_| | |   \ V /  __/ | |
+        |_|  |_|\__,_|_|    \_/ \___|_|_|
+ _   _     ____              _
+| | | |   | __ )  ___   ___ | |_ 
+| | | |___|  _ \ / _ \ / _ \| __| 
+| |_| |___| |_) | (_) | (_) | |_ 
+ \___/    |____/ \___/ \___/ \__|  ** ix2-spi ** ** uboot_ver:0.0.8 **
+
+ ** MARVELL BOARD: DB-88F6282A-BP LE 
+
+U-Boot 1.1.4 (Oct 28 2011 - 15:18:22) Marvell version: 3.6.1 - EMC
+
+U-Boot code: 00600000 -> 0067FFF0  BSS: -> 006CD5A0
+
+Soc: 88F6282 A1 CPU running @ 1600Mhz L2 running @ 533Mhz
+SysClock = 533Mhz , TClock = 200Mhz 
+
+DRAM (DDR3) CAS Latency = 7 tRP = 7 tRAS = 20 tRCD=7
+DRAM CS[0] base 0x00000000   size 256MB 
+DRAM Total size 256MB  16bit width
+Addresses 8M - 0M are saved for the U-Boot usage.
+Mem malloc Initialization (8M - 7M): Done
+Found ADT7473, program PWM1 ... OK
+[1024kB@f8000000] Flash:  1 MB
+
+Marvell Serial ATA Adapter
+Integrated Sata device found
+[0 0 0]: Enable DMA mode (6)
+  Device 0 @ 0 0:
+Model: WDC WD20EZRX-00D8PB0                     Firm: 80.00A80 Ser#:      xx-xxxxxxxxxxxx
+            Type: Hard Disk
+            Supports 48-bit addressing
+            Capacity: 1907729.0 MB = 1863.0 GB (-387938128 x 512)
+
+
+CPU : Marvell Feroceon (Rev 1)
+
+Streaming disabled 
+Write allocate disabled
+
+
+USB 0: host mode
+PEX 0: interface detected no Link.
+PEX 1: interface detected no Link.
+Net:   egiga0 [PRIME]
+Hit any key to stop autoboot:  3  2  1  0 
+
+Reset IDE: 
+Marvell Serial ATA Adapter
+Integrated Sata device found
+[0 0 0]: Enable DMA mode (6)
+  Device 0 @ 0 0:
+Model: WDC WD20EZRX-00D8PB0                     Firm: 80.00A80 Ser#:      xx-xxxxxxxxxxxx
+            Type: Hard Disk
+            Supports 48-bit addressing
+            Capacity: 1907729.0 MB = 1863.0 GB (-387938128 x 512)
+
+
+2086787 bytes read
+
+3263195 bytes read
+## Booting image at 00800000 ...
+   Image Name:   kernel 3.16.0-4-kirkwood
+   Created:      2017-02-17  18:29:18 UTC
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    2086723 Bytes =  2 MB
+   Load Address: 00008000
+   Entry Point:  00008000
+   Verifying Checksum ... OK
+OK
+## Loading Ramdisk Image at 01100000 ...
+   Image Name:   ramdisk 3.16.0-4-kirkwood
+   Created:      2017-02-08   0:40:00 UTC
+   Image Type:   ARM Linux RAMDisk Image (uncompressed)
+   Data Size:    3263131 Bytes =  3.1 MB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 3.16.0-4-kirkwood (debian-kernel@lists.debian.org) (gcc version 4.8.4 (Debian 4.8.4-1) ) #1 Debian 3.16.39-1 (2016-12-30)
+[    0.000000] CPU: Feroceon 88FR131 [56251311] revision 1 (ARMv5TE), cr=0005397f
+[    0.000000] CPU: VIVT data cache, VIVT instruction cache
+[    0.000000] Machine model: Lenovo IX2-ng
+[    0.000000] Memory policy: Data cache writeback
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 65024
+[    0.000000] Kernel command line: console=ttyS0,115200 root=/dev/sda3 :::DB88FXX81:eth0:none
+[    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)
+[    0.000000] Memory: 250292K/262144K available (3907K kernel code, 361K rwdata, 1440K rodata, 277K init, 288K bss, 11852K reserved, 0K highmem)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xffc00000 - 0xffe00000   (2048 kB)
+[    0.000000]     vmalloc : 0xd0800000 - 0xff000000   ( 744 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xd0000000   ( 256 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc054111c   (5349 kB)
+[    0.000000]       .init : 0xc0542000 - 0xc058776c   ( 278 kB)
+[    0.000000]       .data : 0xc0588000 - 0xc05e2508   ( 362 kB)
+[    0.000000]        .bss : 0xc05e2508 - 0xc062a8ec   ( 289 kB)
+[    0.000000] NR_IRQS:114
+[    0.000011] sched_clock: 32 bits at 200MHz, resolution 5ns, wraps every 21474836475ns
+[    0.000252] Console: colour dummy device 80x30
+[    0.000271] Calibrating delay loop... 1587.20 BogoMIPS (lpj=3174400)
+[    0.020064] pid_max: default: 32768 minimum: 301
+[    0.020145] Security Framework initialized
+[    0.020182] Yama: disabled by default; enable with sysctl kernel.yama.*
+[    0.020240] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.020254] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.020843] Initializing cgroup subsys memory
+[    0.020874] Initializing cgroup subsys devices
+[    0.020913] Initializing cgroup subsys freezer
+[    0.020934] Initializing cgroup subsys net_cls
+[    0.020969] Initializing cgroup subsys blkio
+[    0.020996] Initializing cgroup subsys perf_event
+[    0.021013] Initializing cgroup subsys net_prio
+[    0.021080] CPU: Testing write buffer coherency: ok
+[    0.021158] ftrace: allocating 16369 entries in 32 pages
+[    0.039175] Setting up static identity map for 0x3b2438 - 0x3b2490
+[    0.041792] devtmpfs: initialized
+[    0.043158] pinctrl core: initialized pinctrl subsystem
+[    0.043535] regulator-dummy: no parameters
+[    0.046906] NET: Registered protocol family 16
+[    0.047180] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.047916] cpuidle: using governor ladder
+[    0.047936] cpuidle: using governor menu
+[    0.048140] Feroceon L2: Enabling L2
+[    0.048171] Feroceon L2: Cache support initialised.
+[    0.048447] [Firmware Info]: /ocp@f1000000/ethernet-controller@72000/ethernet0-port@0: local-mac-address is not set
+[    0.052339] No ATAGs?
+[    0.055410] platform regulators:regulator@2: Driver reg-fixed-voltage requests probe deferral
+[    0.056315] Switched to clocksource orion_clocksource
+[    0.073592] NET: Registered protocol family 2
+[    0.074359] TCP established hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.074392] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.074421] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.074465] TCP: reno registered
+[    0.074475] UDP hash table entries: 256 (order: 0, 4096 bytes)
+[    0.074494] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+[    0.074641] NET: Registered protocol family 1
+[    0.074879] Unpacking initramfs...
+[    0.279217] Freeing initrd memory: 3180K (c1101000 - c141c000)
+[    0.280484] futex hash table entries: 256 (order: -1, 3072 bytes)
+[    0.280534] audit: initializing netlink subsys (disabled)
+[    0.280585] audit: type=2000 audit(0.280:1): initialized
+[    0.281235] zbud: loaded
+[    0.281419] VFS: Disk quotas dquot_6.5.2
+[    0.281459] Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+[    0.281534] jffs2: version 2.2. (NAND) (SUMMARY)  © 2001-2006 Red Hat, Inc.
+[    0.281702] msgmni has been set to 495
+[    0.283157] alg: No test for stdrng (krng)
+[    0.283241] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 252)
+[    0.283394] io scheduler noop registered
+[    0.283503] io scheduler cfq registered (default)
+[    0.284460] kirkwood-pinctrl f1010000.pin-controller: registered pinctrl driver
+[    0.285510] mv_xor f1060800.xor: Marvell shared XOR driver
+[    0.304399] mv_xor f1060800.xor: Marvell XOR: ( xor cpy )
+[    0.324396] mv_xor f1060800.xor: Marvell XOR: ( xor cpy )
+[    0.324534] mv_xor f1060900.xor: Marvell shared XOR driver
+[    0.344396] mv_xor f1060900.xor: Marvell XOR: ( xor cpy )
+[    0.364395] mv_xor f1060900.xor: Marvell XOR: ( xor cpy )
+[    0.364741] Serial: 8250/16550 driver, 2 ports, IRQ sharing disabled
+[    0.365727] console [ttyS0] disabled
+[    0.365769] f1012100.serial: ttyS0 at MMIO 0xf1012100 (irq = 34, base_baud = 12500000) is a 16550A
+[    0.866353] console [ttyS0] enabled
+[    0.875061] m25p80 spi0.0: mx25l8005 (1024 Kbytes)
+[    0.879911] 3 ofpart partitions found on MTD device spi0.0
+[    0.885431] Creating 3 MTD partitions on "spi0.0":
+[    0.890255] 0x000000000000-0x00000007e000 : "u-boot"
+[    0.895248] mtd: partition "u-boot" doesn't end on an erase block -- force read-only
+[    0.903950] 0x00000007e000-0x00000007f000 : "u-boot env2"
+[    0.909392] mtd: partition "u-boot env2" doesn't start on an erase block boundary -- force read-only
+[    0.919456] 0x00000007f000-0x000000080000 : "u-boot env"
+[    0.924808] mtd: partition "u-boot env" doesn't start on an erase block boundary -- force read-only
+[    0.935165] mousedev: PS/2 mouse device common for all mice
+[    0.941204] rtc-mv f1010300.rtc: rtc core: registered f1010300.rtc as rtc0
+[    0.948217] i2c /dev entries driver
+[    0.956543] ledtrig-cpu: registered to indicate activity on CPUs
+[    0.962853] TCP: cubic registered
+[    0.966200] NET: Registered protocol family 17
+[    0.971229] registered taskstats version 1
+[    0.976078] SATA1 Power: 5000 mV 
+[    0.979719] rtc-mv f1010300.rtc: setting system clock to 2017-02-17 19:33:35 UTC (1487360015)
+[    0.989917] Freeing unused kernel memory: 276K (c0542000 - c0587000)
+Loading, please wait...
+[    1.052857] systemd-udevd[52]: starting version 215
+[    1.065817] random: systemd-udevd: uninitialized urandom read (16 bytes read, 2 bits of entropy available)
+[    1.179472] SCSI subsystem initialized
+[    1.227419] sata_mv f1080000.sata: slots 32 ports 2
+[    1.270059] scsi0 : sata_mv
+[    1.286180] scsi1 : sata_mv
+[    1.291414] ata1: SATA max UDMA/133 irq 21
+[    1.295555] ata2: SATA max UDMA/133 irq 21
+[    1.772349] ata1: SATA link up 3.0 Gbps (SStatus 123 SControl F300)
+[    1.784549] ata1.00: ATA-9: WDC WD20EZRX-00D8PB0, 80.00A80, max UDMA/133
+[    1.791295] ata1.00: 3907029168 sectors, multi 0: LBA48 NCQ (depth 31/32)
+[    1.804540] ata1.00: configured for UDMA/133
+[    1.809128] scsi 0:0:0:0: Direct-Access     ATA      WDC WD20EZRX-00D 0A80 PQ: 0 ANSI: 5
+[    2.136343] ata2: SATA link down (SStatus 0 SControl F300)
+[    2.155805] sd 0:0:0:0: [sda] 3907029168 512-byte logical blocks: (2.00 TB/1.81 TiB)
+[    2.163613] sd 0:0:0:0: [sda] 4096-byte physical blocks
+[    2.171351] sd 0:0:0:0: [sda] Write Protect is off
+[    2.176275] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    2.220028]  sda: sda1 sda2 sda3 sda4
+[    2.225889] sd 0:0:0:0: [sda] Attached SCSI disk
+Begin: Loading essential drivers ... modprobe: module of:NocpT<NULL>Csimple-bus not found in modules.dep
+modprobe: module of:NgpioT<NULL>Cmarvell,orion-gpio not found in modules.dep
+modprobe: module of:NocpT<NULL>Csimple-bus not found in modules.dep
+modprobe: module of:NgpioT<NULL>Cmarvell,orion-gpio not found in modules.dep
+modprobe: module of:NocpT<NULL>Csimple-bus not found in modules.dep
+modprobe: module of:Nsata-phyT<NULL>Cmarvell,mvebu-sata-phy not found in modules.dep
+modprobe: module of:NocpT<NULL>Csimple-bus not found in modules.dep
+modprobe: module of:Nsata-phyT<NULL>Cmarvell,mvebu-sata-phy not found in modules.dep
+modprobe: module of:NocpT<NULL>Csimple-bus not found in modules.dep
+modprobe: module platform:reg-dummy not found in modules.dep
+modprobe: module of:NregulatorT<NULL>Cregulator-fixed not found in modules.dep
+modprobe: module of:NregulatorsT<NULL>Csimple-bus not found in modules.dep
+done.
+[    2.657044] PM: Starting manual resume from disk
+Begin: Running /scripts/init-premount ... done.
+Begin: Mounting root file system ... Begin: Running /scripts/local-top ... done.
+Begin: Running /scripts/local-premount ... done.
+Begin: Will now check root file system ... fsck from util-linux 2.25.2
+[/sbin/fsck.ext4 (1) -- /dev/sda3] fsck.ext4 -a -C0 /dev/sda3 
+_root: clean, 31255/1954064 files, 380339/7812608 blocks
+done.
+[    2.847718] EXT4-fs (sda3): mounted filesystem with ordered data mode. Opts: (null)
+done.
+Begin: Running /scripts/local-bottom ... done.
+Begin: Running /scripts/init-bottom ... done.
+INIT: version 2.88 booting
+[info] Using makefile-style concurrent boot in runlevel S.
+[    4.033227] random: nonblocking pool is initialized
+[....] Starting the hotplug events dispatcher: udevd[    4.088755] systemd-udevd[297]: starting version 215
+[ ok .
+[....] Synthesizing the initial hotplug events...[    4.315417] input: gpio-keys as /devices/gpio-keys/input/input0
+[    4.371926] orion_wdt: Initial timeout 21 sec
+[    4.380067] adt7475 0-002e: ADT7473 device, revision 0
+[    4.385276] adt7475 0-002e: Optional features: fan4 pwm2
+[ ok [    4.424126] libphy: orion_mdio_bus: probed
+done.
+[    4.467056] sd 0:0:0:0: Attached scsi generic sg0 type 0
+[    4.483493] usbcore: registered new interface driver usbfs
+[    4.513209] mv643xx_eth: MV-643xx 10/100/1000 ethernet driver version 1.4
+[    4.536463] usbcore: registered new interface driver hub
+[....] Waiting for /dev to be fully populated...[    4.559348] mv643xx_eth_port mv643xx_eth_port.0 eth0: port 0 with MAC address xx:xx:xx:xx:xx:xx
+[    4.585475] usbcore: registered new device driver usb
+[    4.722812] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    4.753191] ehci-orion: EHCI orion driver
+[    4.758152] orion-ehci f1050000.ehci: EHCI Host Controller
+[    4.766434] orion-ehci f1050000.ehci: new USB bus registered, assigned bus number 1
+[    4.774292] orion-ehci f1050000.ehci: irq 19, io mem 0xf1050000
+[    4.792360] orion-ehci f1050000.ehci: USB 2.0 started, EHCI 1.00
+[    4.800992] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    4.807893] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    4.815165] usb usb1: Product: EHCI Host Controller
+[    4.820074] usb usb1: Manufacturer: Linux 3.16.0-4-kirkwood ehci_hcd
+[    4.826465] usb usb1: SerialNumber: f1050000.ehci
+[    4.832476] hub 1-0:1.0: USB hub found
+[    4.836272] hub 1-0:1.0: 1 port detected
+[ ok done.
+[....] Setting parameters of disc:
+/dev/sda:
+ setting wdidle3 to 300 secs (or 13.8 secs for older drives)
+ wdidle3      = 300 secs (or 13.8 secs for older drives)
+[....] Activating swap...[    5.796001] Adding 976892k swap on /dev/sda2.  Priority:-1 extents:1 across:976892k FS
+[ ok done.
+[    5.889476] EXT4-fs (sda3): re-mounted. Opts: (null)
+[....] Checking root file system...fsck from util-linux 2.25.2
+_root: clean, 31255/1954064 files, 380339/7812608 blocks
+[ ok done.
+[    6.099571] EXT4-fs (sda3): re-mounted. Opts: errors=remount-ro
+[....] Activating lvm and md swap...[ ok done.
+[....] Checking file systems...fsck from util-linux 2.25.2
+_boot: clean, 24/62248 files, 27411/248832 blocks
+_home: clean, 119306/120070144 files, 8063341/480259328 blocks
+[ ok done.
+[....] Cleaning up temporary files... /tmp[ ok .
+[    7.440296] EXT4-fs (sda1): mounting ext2 file system using the ext4 subsystem
+[    7.450092] EXT4-fs (sda1): mounted filesystem without journal. Opts: (null)
+[    7.988978] EXT4-fs (sda4): mounted filesystem with ordered data mode. Opts: (null)
+[....] Mounting local filesystems...[ ok done.
+[....] Activating swapfile swap...[ ok done.
+[....] Cleaning up temporary files...[ ok .
+[....] Setting kernel variables ...[ ok done.
+[....] Configuring network interfaces...[ ok done.
+[    9.131811] NET: Registered protocol family 10
+[    9.143023] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+[....] Starting rpcbind daemon...[ ok .
+[    9.636077] RPC: Registered named UNIX socket transport module.
+[    9.642060] RPC: Registered udp transport module.
+[    9.646791] RPC: Registered tcp transport module.
+[    9.651525] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    9.679581] FS-Cache: Loaded
+[    9.712435] FS-Cache: Netfs 'nfs' registered for caching
+[    9.768910] Installing knfsd (copyright (C) 1996 okir@monad.swb.de).
+[....] Starting NFS common utilities: statd idmapd[ ok .
+[....] Cleaning up temporary files...[ ok .
+INIT: Entering runlevel: 2
+[info] Using makefile-style concurrent boot in runlevel 2.
+[   10.717074] mv643xx_eth_port mv643xx_eth_port.0 eth0: link up, 100 Mb/s, full duplex, flow control disabled
+[   10.727015] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[....] Starting enhanced syslogd: rsyslogd[ ok .
+[....] Starting NetBIOS name server: nmbd[ ok .
+[....] Starting deferred execution scheduler: atd[ ok .
+[....] Starting periodic command scheduler: cron[ ok .
+[....] Starting system message bus: dbus[ ok .
+[....] Starting a multimedia keyboard daemon for Linux : esekeydESE Key Deamon 1.2.7 (SVN-r63)
+[ ok .
+[....] Starting MTA: exim4[ ok .
+[....] Starting NTP server: ntpd[ ok .
+[....] Starting SMB/CIFS daemon: smbd[ ok .
+[....] Starting OpenBSD Secure Shell server: sshd[ ok .
+
+Debian GNU/Linux 8 mnemotest ttyS0
+
+mnemotest login: root
+Password: 
+Last login: Mon Feb  6 09:35:09 PST 2017 on ttyS0
+Linux mnemotest 3.16.0-4-kirkwood #1 Debian 3.16.39-1 (2016-12-30) armv5tel
+
+                                  WELCOME TO
+
+              __  ___                           __            __ 
+             /  |/  /___  ___  ____ ___  ____  / /____  _____/ /_
+            / /|_/ / __ \/ _ \/ __ `__ \/ __ \/ __/ _ \/ ___/ __/
+           / /  / / / / /  __/ / / / / / /_/ / /_/  __(__  ) /_  
+          /_/  /_/_/ /_/\___/_/ /_/ /_/\____/\__/\___/____/\__/  
+
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+root@mnemotest:~# 
